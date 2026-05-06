@@ -72,13 +72,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Form submission prevent default (for demo purposes)
     const contactForm = document.querySelector('.contact-form');
-    if(contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your message! This is a demo form.');
-            contactForm.reset();
-        });
-    }
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = contactForm.querySelector('[name="name"]').value.trim();
+        const email = contactForm.querySelector('[name="email"]').value.trim();
+        const message = contactForm.querySelector('[name="message"]').value.trim();
+
+        // Encode values to handle spaces, special characters, line breaks etc.
+        const subject = encodeURIComponent(`Message from ${name}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+
+        window.location.href = `mailto:sachiradilhara00@gmail.com?subject=${subject}&body=${body}`;
+    });
+}
 
     // Add sticky navbar shadow on scroll
     const navbar = document.getElementById('navbar');
